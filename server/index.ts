@@ -4,6 +4,7 @@ const app = express();
 const morgan = require('morgan');
 
 const { query } = require('./db');
+const { RESTAURANTS } = process.env;
 
 const port = process.env.PORT || 4006;
 const commonPath = '/api/v1/restaurants';
@@ -13,30 +14,50 @@ app.use(express.json());
 
 // Get Restaurans 
 app.get(commonPath, async (_, res) => {
-    const { rows } = await query("SELECT * FROM restaurants;");
-    // res.send("These are the restaurants.");
-    res.status(200).json({
-        data: {
-            restaurants: rows
-        }
-    });
+    try {
+        const { rows } = await query(`SELECT * FROM ${RESTAURANTS};`);
+        // res.send("These are the restaurants.");
+        res.status(200).json({
+            status: "success",
+            count: rows.length,
+            data: {
+                restaurants: rows
+            }
+        });
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 // Get A Restaurant
-app.get(`${commonPath}/:id`, (req, res) => {
-    res.status(200).json({
-        data: {
-            id: req.params.id,
-            restaurant: "McDonald"
-        }
-    });
+app.get(`${commonPath}/:id`, async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { rows } = await query(`SELECT * FROM ${RESTAURANTS} WHERE id=$1 LIMIT 1;`, [id]);
+        // res.send("These are the restaurants.");
+        res.status(200).json({
+            status: "success",
+            count: rows.length,
+            data: {
+                restaurant: rows[0]
+            }
+        });
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 // Create A Restaurant
-app.post(commonPath, (req, res) => {
-    res.status(201).json({
-        ...req.body
-    });
+app.post(commonPath, async (req, res) => {
+    const { name, city, price_range } = req.body;
+    try {
+        await query(`INSERT INTO ${RESTAURANTS} (name, city, price_range) VALUES ($1, $2, $3);`, [name, city, price_range]);
+        res.status(201).json({
+            status: "success"
+        });
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 // Update A Restaurant
@@ -44,14 +65,21 @@ app.put(`${commonPath}/:id`, (req, res) => {
     res.status(200).json({
         ...req.body,
         ...req.params
-    })
+    });
 });
 
 // Delete A Restaurant
-app.delete(`${commonPath}/:id`, (req, res) => {
-    res.status(204).json({
-        status: "success"
-    })
+app.delete(`${commonPath}/:id`, async (req, res) => {
+    const { id } = req.params;
+    try {
+        await query(`DELETE FROM ${RESTAURANTS} WHERE id = $1 LIMIT 1`, [id]);
+        res.status(204).json({
+            status: "success"
+        });
+        
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 app.listen(port, () => {
