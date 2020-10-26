@@ -6,7 +6,7 @@ const app = express();
 const morgan = require('morgan');
 
 const { query } = require('./db');
-const { RESTAURANTS } = process.env;
+const { F_GET_RESTAURANT, F_GET_RESTAURANTS, F_UPDATE_RESTAURANT, F_DELETE_RESTAURANT } = process.env;
 
 const port = process.env.PORT || 4006;
 const commonPath = '/api/v1/restaurants';
@@ -17,7 +17,7 @@ app.use(express.json());
 // Get Restaurans 
 app.get(commonPath, async (_, res) => {
     try {
-        const { rows } = await query(`SELECT * FROM ${RESTAURANTS};`);
+        const { rows } = await query(`SELECT * FROM ${F_GET_RESTAURANTS}();`);
         // res.send("These are the restaurants.");
         res.status(200).json({
             status: "success",
@@ -35,7 +35,7 @@ app.get(commonPath, async (_, res) => {
 app.get(`${commonPath}/:id`, async (req, res) => {
     const { id } = req.params;
     try {
-        const { rows } = await query(`SELECT * FROM ${RESTAURANTS} WHERE id=$1 LIMIT 1;`, [id]);
+        const { rows } = await query(`SELECT * FROM ${F_GET_RESTAURANT}($1);`, [id]);
         // res.send("These are the restaurants.");
         res.status(200).json({
             status: "success",
@@ -53,7 +53,7 @@ app.get(`${commonPath}/:id`, async (req, res) => {
 app.post(commonPath, async (req, res) => {
     const { name, city, price_range } = req.body;
     try {
-        const { rows } = await query(`INSERT INTO ${RESTAURANTS} (name, city, price_range) VALUES ($1, $2, $3) RETURNING *;`, [name, city, price_range]);
+        const { rows } = await query(`SELECT * FROM create_restaurant($1, $2, $3);`, [name, city, price_range]);
         res.status(201).json({
             status: "success",
             restaurant: rows[0]
@@ -68,7 +68,7 @@ app.put(`${commonPath}/:id`, async (req, res) => {
     const { name, city, price_range } = req.body;
     const { id } = req.params;
     try {
-        const { rows } = await query(`UPDATE ${RESTAURANTS} SET name = COALESCE($1, name), city = COALESCE($2, city), price_range = COALESCE($3, price_range) WHERE id = $4 RETURNING *;`, [name, city, price_range, id]);
+        const { rows } = await query(`SELECT * FROM ${F_UPDATE_RESTAURANT}($1, $2, $3, $4)`, [name, city, price_range, id]);
         res.status(200).json({
             status: "success",
             restaurant: rows[0]
@@ -82,7 +82,7 @@ app.put(`${commonPath}/:id`, async (req, res) => {
 app.delete(`${commonPath}/:id`, async (req, res) => {
     const { id } = req.params;
     try {
-        await query(`DELETE FROM ${RESTAURANTS} WHERE id = $1 LIMIT 1`, [id]);
+        await query(`CALL ${F_DELETE_RESTAURANT}($1)`, [id]);
         res.status(204).json({
             status: "success"
         });
