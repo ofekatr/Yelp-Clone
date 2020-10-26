@@ -1,3 +1,5 @@
+import { Console } from "console";
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
@@ -51,9 +53,10 @@ app.get(`${commonPath}/:id`, async (req, res) => {
 app.post(commonPath, async (req, res) => {
     const { name, city, price_range } = req.body;
     try {
-        await query(`INSERT INTO ${RESTAURANTS} (name, city, price_range) VALUES ($1, $2, $3);`, [name, city, price_range]);
+        const { rows } = await query(`INSERT INTO ${RESTAURANTS} (name, city, price_range) VALUES ($1, $2, $3) RETURNING *;`, [name, city, price_range]);
         res.status(201).json({
-            status: "success"
+            status: "success",
+            restaurant: rows[0]
         });
     } catch (err) {
         console.error(err);
@@ -61,11 +64,18 @@ app.post(commonPath, async (req, res) => {
 });
 
 // Update A Restaurant
-app.put(`${commonPath}/:id`, (req, res) => {
-    res.status(200).json({
-        ...req.body,
-        ...req.params
-    });
+app.put(`${commonPath}/:id`, async (req, res) => {
+    const { name, city, price_range } = req.body;
+    const { id } = req.params;
+    try {
+        const { rows } = await query(`UPDATE ${RESTAURANTS} SET name = COALESCE($1, name), city = COALESCE($2, city), price_range = COALESCE($3, price_range) WHERE id = $4 RETURNING *;`, [name, city, price_range, id]);
+        res.status(200).json({
+            status: "success",
+            restaurant: rows[0]
+        });
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 // Delete A Restaurant
@@ -76,7 +86,7 @@ app.delete(`${commonPath}/:id`, async (req, res) => {
         res.status(204).json({
             status: "success"
         });
-        
+
     } catch (err) {
         console.error(err);
     }
