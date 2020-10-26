@@ -1,8 +1,7 @@
 # Yelp Clone Web Application
 ---
 Written in TypeScript, implemented with:
-* MongoDB
+* PostgreSQL
 * Express
 * React
 * Node
-* GraphQL
