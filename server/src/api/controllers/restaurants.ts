@@ -1,6 +1,7 @@
 const { query } = require('../../db');
 const { F_GET_RESTAURANT, F_GET_RESTAURANTS, F_UPDATE_RESTAURANT, P_DELETE_RESTAURANT } = process.env;
 
+// Get All Restaurants.
 const getRestaurants = async (_, res) => {
     try {
         const { rows } = await query(`SELECT * FROM ${F_GET_RESTAURANTS}();`);
@@ -17,6 +18,7 @@ const getRestaurants = async (_, res) => {
     }
 };
 
+// Get A Restaurant.
 const getRestaurant = async (req, res) => {
     const { id } = req.params;
     try {
@@ -34,6 +36,7 @@ const getRestaurant = async (req, res) => {
     }
 };
 
+// Create A Restaurant.
 const createRestaurant = async (req, res) => {
     const { name, city, price_range } = req.body;
     try {
@@ -47,6 +50,7 @@ const createRestaurant = async (req, res) => {
     }
 };
 
+// Update A Restaurant.
 const updateRestaurant = async (req, res) => {
     const { name, city, price_range } = req.body;
     const { id } = req.params;
@@ -61,6 +65,7 @@ const updateRestaurant = async (req, res) => {
     }
 };
 
+// Delete A Restaurant.
 const deleteRestaurant = async (req, res) => {
     const { id } = req.params;
     try {
