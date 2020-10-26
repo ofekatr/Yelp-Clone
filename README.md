@@ -1,6 +1,6 @@
 # Yelp Clone Web Application
 ---
-Restaurant reviews web application.
+A restaurants reviews web application.
 
 Written in TypeScript, implemented with:
 * PostgreSQL
