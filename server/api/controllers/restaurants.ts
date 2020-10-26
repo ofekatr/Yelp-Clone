@@ -1,21 +1,7 @@
-import { Console } from "console";
+const { query } = require('../../db');
+const { F_GET_RESTAURANT, F_GET_RESTAURANTS, F_UPDATE_RESTAURANT, P_DELETE_RESTAURANT } = process.env;
 
-require('dotenv').config();
-const express = require('express');
-const app = express();
-const morgan = require('morgan');
-
-const { query } = require('./db');
-const { F_GET_RESTAURANT, F_GET_RESTAURANTS, F_UPDATE_RESTAURANT, F_DELETE_RESTAURANT } = process.env;
-
-const port = process.env.PORT || 4006;
-const commonPath = '/api/v1/restaurants';
-
-app.use(morgan('tiny'));
-app.use(express.json());
-
-// Get Restaurans 
-app.get(commonPath, async (_, res) => {
+const getRestaurants = async (_, res) => {
     try {
         const { rows } = await query(`SELECT * FROM ${F_GET_RESTAURANTS}();`);
         // res.send("These are the restaurants.");
@@ -29,10 +15,9 @@ app.get(commonPath, async (_, res) => {
     } catch (err) {
         console.error(err);
     }
-});
+};
 
-// Get A Restaurant
-app.get(`${commonPath}/:id`, async (req, res) => {
+const getRestaurant = async (req, res) => {
     const { id } = req.params;
     try {
         const { rows } = await query(`SELECT * FROM ${F_GET_RESTAURANT}($1);`, [id]);
@@ -47,10 +32,9 @@ app.get(`${commonPath}/:id`, async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-});
+};
 
-// Create A Restaurant
-app.post(commonPath, async (req, res) => {
+const createRestaurant = async (req, res) => {
     const { name, city, price_range } = req.body;
     try {
         const { rows } = await query(`SELECT * FROM create_restaurant($1, $2, $3);`, [name, city, price_range]);
@@ -61,10 +45,9 @@ app.post(commonPath, async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-});
+};
 
-// Update A Restaurant
-app.put(`${commonPath}/:id`, async (req, res) => {
+const updateRestaurant = async (req, res) => {
     const { name, city, price_range } = req.body;
     const { id } = req.params;
     try {
@@ -76,13 +59,12 @@ app.put(`${commonPath}/:id`, async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-});
+};
 
-// Delete A Restaurant
-app.delete(`${commonPath}/:id`, async (req, res) => {
+const deleteRestaurant = async (req, res) => {
     const { id } = req.params;
     try {
-        await query(`CALL ${F_DELETE_RESTAURANT}($1)`, [id]);
+        await query(`CALL ${P_DELETE_RESTAURANT}($1)`, [id]);
         res.status(204).json({
             status: "success"
         });
@@ -90,10 +72,12 @@ app.delete(`${commonPath}/:id`, async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-});
+};
 
-app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-});
-
-export { };
+module.exports = {
+    getRestaurants,
+    getRestaurant,
+    createRestaurant,
+    updateRestaurant,
+    deleteRestaurant
+};
