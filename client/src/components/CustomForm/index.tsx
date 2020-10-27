@@ -30,7 +30,9 @@ const CustomForm = ({ onSubmit, onChange, inputs, fieldItems }) => {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}
+      >
         <Grid centered columns="3">
           <Grid.Row>
             {fieldItems.map(({ name, placeholder, type, options }) => (

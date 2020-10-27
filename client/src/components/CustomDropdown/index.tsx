@@ -2,20 +2,22 @@ import React from "react";
 import { Form } from "semantic-ui-react";
 
 const CustomDropdown = ({ options, name, placeholder, onChange, inputs }) => (
-  <Form.Dropdown
-    fluid
+  <select
+    className="ui selection dropdown"
     style={{ marginTop: "25px" }}
-    selection
+    onChange={onChange}
     name={name}
-    placeholder={placeholder}
-    onChange={(e: any, data) => {
-      e.target.name = data.name;
-      e.target.value = data.value;
-      onChange(e);
-    }}
-    options={options}
     value={inputs.price_range}
-  />
+  >
+    <option value={0}>
+      {placeholder}
+    </option>
+    {options.map(({ key, text, value }) => (
+      <option key={key} value={value}>
+        {text}
+      </option>
+    ))}
+  </select>
 );
 
 export default CustomDropdown;

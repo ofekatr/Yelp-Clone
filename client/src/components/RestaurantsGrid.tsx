@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Button, Icon, Rating, Table } from "semantic-ui-react";
 import RestaurantFinder from "../api/restaurants";
 import { RestaurantContext } from "../context";
+import range from "../utils/range";
 import DeleteButton from "./DeleteButton";
 
 export default function RestaurantsGrid() {
@@ -17,12 +18,16 @@ export default function RestaurantsGrid() {
     };
     fetch();
   }, [setRestaurants]);
-  let dollarCount = 0;
-  const dollarsList = restaurants.map(({ price_range }) =>
-    [...Array(price_range).keys()].map(() => (
-      <Icon name="dollar sign" key={dollarCount++} />
-    ))
-  );
+
+  const deleteRestaurant = (id) => {
+    try {
+      RestaurantFinder.delete(`/${id}`);
+    } catch (err) {
+      console.error(err);
+    }
+    setRestaurants(restaurants.filter((r) => r.id !== id));
+  };
+
   return (
     <div>
       {restaurants && (
@@ -40,13 +45,19 @@ export default function RestaurantsGrid() {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {restaurants.map(({ id, name, city }, i) => (
+            {restaurants.map(({ id, name, city, price_range }, i) => (
               <Table.Row key={id}>
                 <Table.Cell>
                   <Icon name="utensils" /> {name}
                 </Table.Cell>
                 <Table.Cell textAlign="center">{city}</Table.Cell>
-                <Table.Cell textAlign="center">{dollarsList[i]}</Table.Cell>
+                <Table.Cell textAlign="center">
+                  {range(0, price_range).map((j) => {
+                    return (
+                      <Icon name="dollar sign" key={id.toString().repeat(j)} />
+                    );
+                  })}
+                </Table.Cell>
                 <Table.Cell textAlign="center">
                   <Button
                     inverted
@@ -69,7 +80,7 @@ export default function RestaurantsGrid() {
                   />
                 </Table.Cell>
                 <Table.Cell textAlign="center">
-                  <DeleteButton id={id} />
+                  <DeleteButton callback={deleteRestaurant} id={id} />
                 </Table.Cell>
               </Table.Row>
             ))}

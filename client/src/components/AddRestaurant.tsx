@@ -10,24 +10,27 @@ import _ from "lodash";
 export default function AddRestaurant() {
   const { restaurants, setRestaurants }: any = useContext(RestaurantContext);
 
-  const initState = {
+  const initState: { name: string; city: string; price_range: number } = {
     name: "",
     city: "",
     price_range: 0,
   };
 
   function add() {
+    if (inputs.price_range === 0) return;
     createRestaurant(inputs);
     setInputs(_.cloneDeep(initState));
   }
 
-  let { onChange, onSubmit, inputs, setInputs } = useForm(() => add());
+  let { onChange, onSubmit, inputs, setInputs } = useForm(
+    () => add(),
+    _.cloneDeep(initState)
+  );
 
   const createRestaurant = (restaurant) => {
     RestaurantFinder.post("/", restaurant);
-    setRestaurants([...restaurants, restaurant]);
+    setRestaurants([...restaurants, { ...restaurant, id: 0 }]);
     inputs = _.cloneDeep(initState);
-    console.log(inputs);
   };
 
   const price_range_options: any = [...Array(6).keys()].slice(1).map((i) => ({
@@ -38,7 +41,7 @@ export default function AddRestaurant() {
   }));
 
   return (
-    <div style={{marginTop: '100px'}}>
+    <div style={{ marginTop: "100px" }}>
       <CustomForm
         onSubmit={onSubmit}
         onChange={onChange}
