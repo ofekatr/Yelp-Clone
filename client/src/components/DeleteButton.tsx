@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Confirm, Icon } from "semantic-ui-react";
+import { Button, Confirm, Icon, TransitionablePortal } from "semantic-ui-react";
 
 export default function DeleteButton(params) {
   const { id, callback } = params;
@@ -23,11 +23,16 @@ export default function DeleteButton(params) {
         Delete   
         <Icon name="trash" />
       </Button>
-      <Confirm
+      <TransitionablePortal
         open={confirmOpen}
-        onCancel={() => setConfirmOpen(false)}
-        onConfirm={deleteRestaurant}
-      />
+        transition={{ animation: "fly down", duration: 700 }}
+      >
+        <Confirm
+          open={true}
+          onCancel={() => setConfirmOpen(false)}
+          onConfirm={deleteRestaurant}
+        />
+      </TransitionablePortal>
     </>
   );
 }
