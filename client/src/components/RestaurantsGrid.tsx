@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from "react";
-import { Button, Icon, Rating, Table } from "semantic-ui-react";
+import { Icon, Rating, Table } from "semantic-ui-react";
 import RestaurantFinder from "../api/restaurants";
 import { RestaurantContext } from "../context";
 import range from "../utils/range";
 import DeleteButton from "./DeleteButton";
+import UpdateModal from "./UpdateModal";
 
-export default function RestaurantsGrid() {
+export default function RestaurantsGrid({ style }) {
   const { restaurants, setRestaurants }: any = useContext(RestaurantContext);
   useEffect(() => {
     const fetch = async () => {
@@ -29,7 +30,7 @@ export default function RestaurantsGrid() {
   };
 
   return (
-    <div>
+    <div style={style}>
       {restaurants && (
         <Table celled inverted striped style={{ borderRadius: "8px" }}>
           <Table.Header>
@@ -47,8 +48,14 @@ export default function RestaurantsGrid() {
           <Table.Body>
             {restaurants.map(({ id, name, city, price_range }, i) => (
               <Table.Row key={id}>
-                <Table.Cell>
-                  <Icon name="utensils" /> {name}
+                <Table.Cell selectable>
+                  <a
+                    href={`/restaurants/${id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Icon name="utensils" /> {name}
+                  </a>
                 </Table.Cell>
                 <Table.Cell textAlign="center">{city}</Table.Cell>
                 <Table.Cell textAlign="center">
@@ -59,17 +66,7 @@ export default function RestaurantsGrid() {
                   })}
                 </Table.Cell>
                 <Table.Cell textAlign="center">
-                  <Button
-                    inverted
-                    color="yellow"
-                    style={{
-                      paddingRight: "6px",
-                      padding: "11px 4px 11px 10px",
-                    }}
-                  >
-                    Update   
-                    <Icon name="refresh" />
-                  </Button>
+                  <UpdateModal values={{ id, name, city, price_range }} />
                 </Table.Cell>
                 <Table.Cell textAlign="center">
                   <Rating

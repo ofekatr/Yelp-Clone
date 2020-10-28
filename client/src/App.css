@@ -1,3 +1,8 @@
 .table tr.visible.transition {
-    display: table-row !important;
-  }
+  display: table-row !important;
+}
+
+#update-form-button {
+  background-color: #034f6d;
+  color: #ffffff;
+}

@@ -54,6 +54,7 @@ const createRestaurant = async (req, res) => {
 const updateRestaurant = async (req, res) => {
     const { name, city, price_range } = req.body;
     const { id } = req.params;
+    console.log(req.body, req.params);
     try {
         const { rows } = await query(`SELECT * FROM ${F_UPDATE_RESTAURANT}($1, $2, $3, $4)`, [name, city, price_range, id]);
         res.status(200).json({

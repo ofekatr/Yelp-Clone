@@ -1,10 +1,16 @@
 import React from "react";
-import { Grid, Button } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 import "./index.scss";
 import CustomDropdown from "../CustomDropdown";
 
-const CustomForm = ({ onSubmit, onChange, inputs, fieldItems }) => {
+const CustomForm = ({
+  onSubmit,
+  onChange,
+  inputs,
+  fieldItems,
+  submitButton,
+}) => {
   const TextInput = ({ placeholder, name }) => (
     <div className="form__group field">
       <input
@@ -30,9 +36,7 @@ const CustomForm = ({ onSubmit, onChange, inputs, fieldItems }) => {
 
   return (
     <div>
-      <form
-        onSubmit={onSubmit}
-      >
+      <form onSubmit={onSubmit}>
         <Grid centered columns="3">
           <Grid.Row>
             {fieldItems.map(({ name, placeholder, type, options }) => (
@@ -47,11 +51,7 @@ const CustomForm = ({ onSubmit, onChange, inputs, fieldItems }) => {
               </Grid.Column>
             ))}
           </Grid.Row>
-          <div style={{ textAlign: "center", marginBottom: "30px" }}>
-            <Button color="purple" size="large" type="submit">
-              Add
-            </Button>
-          </div>
+          <div style={{ textAlign: "center" }}>{submitButton}</div>
         </Grid>
       </form>
     </div>
