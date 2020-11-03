@@ -1,6 +1,7 @@
 const { query } = require('../../db');
 const { F_GET_RESTAURANT } = process.env;
-const createReview = async (req, res) => {
+
+const createReview = async (req, res, next) => {
     const { name, content, rating } = req.body;
     const { id: restaurant_id } = req.params;
     console.log(restaurant_id, name, content, rating);
@@ -14,7 +15,7 @@ const createReview = async (req, res) => {
             restaurant
         });
     } catch (err) {
-        console.error(err);
+        next(err);
     }
 };
 

@@ -1,6 +1,6 @@
-export {};
+export { };
 
-module.exports = (_, __, next) => {
+module.exports = (err, _, __, next) => {
     console.log("HELLO, WORLD!");
-    next();
+    next(err);
 };
