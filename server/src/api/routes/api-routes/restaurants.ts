@@ -1,9 +1,6 @@
 const router = require("express").Router();
 
-const RestaurantsController = require('../controllers/restaurants');
-const { VERSION } = process.env;
-
-const commonPath = `/api/v${VERSION}/restaurants`;
+const RestaurantsController = require('../../controllers/restaurants');
 
 // Handle request to /v/restaurants
 // Get Restaurans 
@@ -21,6 +18,6 @@ router.put('/:id', RestaurantsController.updateRestaurant);
 // Delete A Restaurant
 router.delete('/:id', RestaurantsController.deleteRestaurant);
 
-module.exports= router;
+module.exports = router;
 
-export {};
+export { };

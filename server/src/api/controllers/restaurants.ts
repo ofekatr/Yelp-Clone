@@ -22,13 +22,13 @@ const getRestaurants = async (_, res) => {
 const getRestaurant = async (req, res) => {
     const { id } = req.params;
     try {
-        const { rows } = await query(`SELECT * FROM ${F_GET_RESTAURANT}($1);`, [id]);
+        const restaurant = { ...(await query(`SELECT * FROM ${F_GET_RESTAURANT}($1);`, [id])).rows[0] };
+        restaurant.reviews = (await query(`SELECT * FROM reviews WHERE restaurant_id = $1 ORDER BY ID DESC;`, [restaurant.id])).rows;
         // res.send("These are the restaurants.");
         res.status(200).json({
             status: "success",
-            count: rows.length,
             data: {
-                restaurant: rows[0]
+                restaurant
             }
         });
     } catch (err) {
@@ -87,3 +87,5 @@ module.exports = {
     updateRestaurant,
     deleteRestaurant
 };
+
+export {};
