@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 const reviews_db = require('../../db/access-layers/reviews');
 const restaurants_db = require('../../db/access-layers/restaurants');
+=======
+const { query } = require('../../db');
+const { F_GET_RESTAURANT } = process.env;
+>>>>>>> master
 
 const createReview = async (req, res, next) => {
     const { name, content, rating } = req.body;

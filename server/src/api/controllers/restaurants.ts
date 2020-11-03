@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 const db = require("../../db/access-layers/restaurants");
+=======
+import { nextTick } from "process";
+
+const { query } = require('../../db');
+const { F_GET_RESTAURANT, F_GET_RESTAURANTS, F_UPDATE_RESTAURANT, P_DELETE_RESTAURANT } = process.env;
+>>>>>>> master
 
 // Get All Restaurants.
 const getRestaurants = async (_, res, next) => {
