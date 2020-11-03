@@ -4,7 +4,6 @@ const db = require("../../db/access-layers/restaurants");
 const getRestaurants = async (_, res, next) => {
     try {
         const restaurants = (await db.getRestaurants()).rows;
-        // res.send("These are the restaurants.");
         res.status(200).json({
             status: "success",
             count: restaurants.length,
@@ -23,7 +22,6 @@ const getRestaurant = async (req, res, next) => {
     try {
         const restaurant = { ...(await db.getRestaurant(id)).rows[0] };
         restaurant.reviews = (await db.getRestaurantReviews(restaurant.id)).rows;
-        restaurant.reviews_count = restaurant.reviews.length;
         res.status(200).json({
             status: "success",
             data: {

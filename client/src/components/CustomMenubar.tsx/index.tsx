@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Search } from "semantic-ui-react";
+import InvertedPopup from "../InvertedPopup";
 
 const menubarLinkStyle = {
   color: "#ffffff",
@@ -34,6 +35,13 @@ export default function CustomMenubar() {
         <Menu.Item
           style={menubarLinkStyle}
           position="right"
+          name="About"
+          as={Link}
+          to={"/"}
+        />
+        <Menu.Item
+          style={menubarLinkStyle}
+          position="right"
           name="Login"
           as={Link}
           to={"/"}
@@ -44,6 +52,18 @@ export default function CustomMenubar() {
           name="Register"
           as={Link}
           to={"/"}
+        />
+        <InvertedPopup
+          position="top center"
+          content="Go to Repository!"
+          trigger={
+            <Menu.Item
+              icon="github"
+              target="_blank"
+              style={menubarLinkStyle}
+              href="https://github.com/ofekatr/yelp-clone"
+            />
+          }
         />
       </Menu.Menu>
     </Menu>

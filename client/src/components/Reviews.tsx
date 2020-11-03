@@ -10,7 +10,7 @@ export default function Reviews({ reviewsData, reviews_count }) {
       <Grid.Row>
         <h3>
           {reviews_count !== 0
-            ? `${reviews_count} Reviews:`
+            ? `${reviews_count} Review(s):`
             : "No reviews yet. Be the first one to review!"}
         </h3>
       </Grid.Row>
