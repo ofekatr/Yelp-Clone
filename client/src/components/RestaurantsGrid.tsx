@@ -49,7 +49,10 @@ export default function RestaurantsGrid({ style }) {
           </Table.Header>
           <Table.Body>
             {restaurants.map(
-              ({ id, name, city, price_range, reviews_count }, i) => (
+              (
+                { id, name, city, price_range, reviews_count, average_rating },
+                i
+              ) => (
                 <Table.Row key={id}>
                   <Table.Cell selectable>
                     <a
@@ -84,10 +87,10 @@ export default function RestaurantsGrid({ style }) {
                           disabled
                           icon="star"
                           size="large"
-                          defaultRating={3}
+                          rating={Math.floor(average_rating)}
                           maxRating={5}
                         />
-                        <span style={ratingFontStyle}>({reviews_count})</span>
+                        <span style={ratingFontStyle}> ({reviews_count})</span>
                       </>
                     )}
                   </Table.Cell>
