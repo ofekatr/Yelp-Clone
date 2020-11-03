@@ -1,14 +1,13 @@
-const { query } = require('../../db');
-const { F_GET_RESTAURANT } = process.env;
+const reviews_db = require('../../db/access-layers/reviews');
+const restaurants_db = require('../../db/access-layers/restaurants');
 
 const createReview = async (req, res, next) => {
     const { name, content, rating } = req.body;
     const { id: restaurant_id } = req.params;
-    console.log(restaurant_id, name, content, rating);
     try {
-        await query("INSERT INTO reviews(restaurant_id, name, content, rating, created_date) VALUES ($1, $2, $3, $4, $5);", [restaurant_id, name, content, rating, new Date().toISOString()]);
-        const restaurant = { ...(await query(`SELECT * FROM ${F_GET_RESTAURANT}($1);`, [restaurant_id])).rows[0] };
-        restaurant.reviews = (await query(`SELECT * FROM reviews WHERE restaurant_id = $1 ORDER BY ID DESC;`, [restaurant.id])).rows;
+        await reviews_db.createReview(restaurant_id, name, content, rating);
+        const restaurant = { ...(await restaurants_db.getRestaurant(restaurant_id)).rows[0] };
+        restaurant.reviews = (await restaurants_db.getRestaurantReviews(restaurant_id)).rows;
         restaurant.reviews_count = restaurant.reviews.length;
         res.status(201).json({
             status: "success",
