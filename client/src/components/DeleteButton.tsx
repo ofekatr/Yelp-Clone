@@ -16,8 +16,7 @@ export default function DeleteButton(params) {
         color="red"
         onClick={() => setConfirmOpen(true)}
         style={{
-          paddingRight: "6px",
-          padding: "11px 4px 11px 10px",
+          padding: "11px 6px 11px 10px",
         }}
       >
         Delete   

@@ -40,8 +40,8 @@ export default function RestaurantsGrid({ style }) {
               <Table.HeaderCell textAlign="center">
                 Price Range
               </Table.HeaderCell>
-              <Table.HeaderCell textAlign="center">Ratings</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">Edit</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Ratings</Table.HeaderCell>
               <Table.HeaderCell textAlign="center">Delete</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -70,6 +70,7 @@ export default function RestaurantsGrid({ style }) {
                 </Table.Cell>
                 <Table.Cell textAlign="center">
                   <Rating
+                    disabled
                     icon="star"
                     size="large"
                     defaultRating={3}

@@ -1,8 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+.bg {
+  /* background-image: url(/images/bg.jpg); */
+  height: 100vh;
+  width: 100vw;
+  background-color: #101010;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.headerDivider {
+  border-left: 1px solid rgba(56, 56, 56, 0.6);
+  border-right: 1px solid #4c215e;
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.page-title {
+  display: block !important;
+  font-family: "Lobster", cursive;
+  text-align: center;
+  -webkit-text-stroke: 1px rgb(16, 16, 16);
+  color: #ffd700;
+  font-size: 4.5rem;
+  font-weight: 900;
+  margin-top: 10px;
+}
+
 .table tr.visible.transition {
   display: table-row !important;
+}
+
+.form-container {
+  width: 100%;
+  margin: auto;
+}
+
+.review-form {
+  width: 40vw;
+  margin-left: 10px;
+}
+
+#reviews {
+  background-color: rgba(180,180,180);
+}
+
+#content {
+  height: 100vh;
+  background-color: rgba(56, 56, 56, 0.6);
+
+  padding: 10px;
+}
+
+#searchbar {
+  margin-left: 15px;
+  border-radius: 10px;
+  width: 25vw;
 }
 
 #update-form-button {
   background-color: #034f6d;
   color: #ffffff;
+}
+
+#review-card {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  -o-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  margin-top: 10px;
 }

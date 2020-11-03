@@ -1,5 +1,5 @@
-$primary: #6600ff;
-$secondary: pink;
+$primary: #cc41ff;
+$secondary: #cc41ff;
 $white: #fff;
 $gray: #9b9b9b;
 
@@ -17,7 +17,7 @@ $gray: #9b9b9b;
   border-bottom: 2px solid $gray;
   outline: 0;
   font-size: 1.3rem;
-  color: $primary;
+  color: $gray;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
@@ -52,6 +52,7 @@ $gray: #9b9b9b;
     color: $primary;
     font-weight: 700;
   }
+  color: $primary;
   padding-bottom: 6px;
   font-weight: 700;
   border-width: 3px;

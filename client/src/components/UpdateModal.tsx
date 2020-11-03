@@ -92,6 +92,7 @@ export default function UpdateModal({ values }) {
                     type="submit"
                     size="large"
                     content="Update"
+                    icon="check"
                   />
                 }
                 fieldItems={[
