@@ -2,7 +2,7 @@ import moment from "moment";
 import React from "react";
 import { Card, Rating } from "semantic-ui-react";
 
-export default function Review({ id, name, createdDate, content, rating }) {
+export default function Review({ id, name, created_date, content, rating }) {
   return (
     <Card fluid id="review-card">
       <Card.Content>
@@ -18,7 +18,7 @@ export default function Review({ id, name, createdDate, content, rating }) {
             />
           </span>
         </Card.Header>
-        <Card.Meta>{moment(createdDate).fromNow()}</Card.Meta>
+        <Card.Meta>{moment(created_date).fromNow()}</Card.Meta>
         <Card.Description>{content}</Card.Description>
       </Card.Content>
     </Card>

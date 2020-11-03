@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { useForm } from "../utils/hooks";
 import CustomForm from "./CustomForm";
-import RestaurantFinder from "../api/restaurants";
+import RestaurantAPI from "../api/restaurants";
 import { RestaurantContext } from "../context";
 
 import _ from "lodash";
@@ -30,7 +30,7 @@ export default function AddRestaurant({ style }) {
 
   const createRestaurant = (restaurant) => {
     try {
-      RestaurantFinder.post("/", restaurant);
+      RestaurantAPI.post("/", restaurant);
     } catch (err) {
       console.error(err);
     }

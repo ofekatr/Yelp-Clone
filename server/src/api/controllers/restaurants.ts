@@ -4,13 +4,13 @@ const { F_GET_RESTAURANT, F_GET_RESTAURANTS, F_UPDATE_RESTAURANT, P_DELETE_RESTA
 // Get All Restaurants.
 const getRestaurants = async (_, res) => {
     try {
-        const { rows } = await query(`SELECT * FROM ${F_GET_RESTAURANTS}();`);
+        const restaurants = (await query('SELECT restaurants.*, COUNT(reviews.id) AS reviews_count FROM restaurants LEFT JOIN reviews ON (restaurants.id = reviews.restaurant_id) GROUP BY restaurants.id;')).rows;
         // res.send("These are the restaurants.");
         res.status(200).json({
             status: "success",
-            count: rows.length,
+            count: restaurants.length,
             data: {
-                restaurants: rows
+                restaurants
             }
         });
     } catch (err) {
@@ -24,6 +24,7 @@ const getRestaurant = async (req, res) => {
     try {
         const restaurant = { ...(await query(`SELECT * FROM ${F_GET_RESTAURANT}($1);`, [id])).rows[0] };
         restaurant.reviews = (await query(`SELECT * FROM reviews WHERE restaurant_id = $1 ORDER BY ID DESC;`, [restaurant.id])).rows;
+        restaurant.reviews_count = restaurant.reviews.length;
         // res.send("These are the restaurants.");
         res.status(200).json({
             status: "success",
@@ -88,4 +89,4 @@ module.exports = {
     deleteRestaurant
 };
 
-export {};
+export { };

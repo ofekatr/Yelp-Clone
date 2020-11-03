@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Divider } from "semantic-ui-react";
-import RestaurantFinder from "../api/restaurants";
+import RestaurantAPI from "../api/restaurants";
 import AddReview from "../components/AddReview";
 import Reviews from "../components/Reviews";
 
@@ -11,11 +11,14 @@ export default function RestaurantDetails(props: any) {
     displayAdd: false,
     error: false,
   } as any);
+
+  const { error, selectedRestaurant, displayAdd }: any = state;
+
   useEffect(() => {
     const fetch = async () => {
       try {
         const { restaurant: selectedRestaurant } = (
-          await RestaurantFinder.get(`/${id}`)
+          await RestaurantAPI.get(`/${id}`)
         ).data.data;
         setState({ selectedRestaurant, error: !selectedRestaurant });
       } catch (err) {
@@ -25,8 +28,6 @@ export default function RestaurantDetails(props: any) {
     };
     fetch();
   }, []);
-
-  const { error, selectedRestaurant, displayAdd }: any = state;
 
   return (
     <>
@@ -51,9 +52,12 @@ export default function RestaurantDetails(props: any) {
                 />
               )}
               {displayAdd && <AddReview state={state} setState={setState} />}
-              <Divider  />
+              <Divider />
               <div>
-                <Reviews reviewsData={selectedRestaurant.reviews} />
+                <Reviews
+                  reviews_count={selectedRestaurant.reviews_count}
+                  reviewsData={selectedRestaurant.reviews}
+                />
               </div>
             </Card.Content>
           </Card>

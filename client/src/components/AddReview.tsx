@@ -3,7 +3,7 @@ import { Button, Form, Input, Rating } from "semantic-ui-react";
 import _ from "lodash";
 
 import { useForm } from "../utils/hooks";
-import ReviewFinder from "../api/reviews";
+import ReviewsAPI from "../api/reviews";
 
 export default function AddReview({ state, setState }) {
   const inputContentRef = useRef(null);
@@ -25,17 +25,16 @@ export default function AddReview({ state, setState }) {
   const createReview = async () => {
     const { content, rating } = inputs;
     try {
-      const { review } = (
-        await ReviewFinder.post(`/${restaurant_id}`, {
+      const { restaurant } = (
+        await ReviewsAPI.post(`/${restaurant_id}`, {
           name,
           content,
           rating,
         })
       ).data;
-      selectedRestaurant.reviews.unshift(review);
       (inputContentRef.current as any).blur();
       setInputs(initState);
-      setState({ ...state, selectedRestaurant });
+      setState({ ...state, selectedRestaurant: restaurant, displayAdd: false });
     } catch (err) {
       console.error(err);
     }

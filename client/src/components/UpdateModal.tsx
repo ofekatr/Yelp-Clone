@@ -11,7 +11,7 @@ import _ from "lodash";
 
 import { useForm } from "../utils/hooks";
 import CustomForm from "./CustomForm";
-import RestaurantFinder from "../api/restaurants";
+import RestaurantAPI from "../api/restaurants";
 import { RestaurantContext } from "../context";
 
 export default function UpdateModal({ values }) {
@@ -28,7 +28,7 @@ export default function UpdateModal({ values }) {
 
   const updateRestaurant = ({ id, name, city, price_range }) => {
     try {
-      RestaurantFinder.put(`/${id}`, { name, city, price_range });
+      RestaurantAPI.put(`/${id}`, { name, city, price_range });
     } catch (err) {
       console.error(err);
     }
