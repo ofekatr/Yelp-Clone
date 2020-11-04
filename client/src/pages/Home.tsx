@@ -12,11 +12,13 @@ export default function Home() {
       ) : (
         <Button
           color="purple"
+          size="large"
           circular
           icon="plus"
           style={{
             paddingLeft: "20px",
             paddingRight: "20px",
+            marginLeft: "30px",
           }}
           content="Add A Restaurant"
           onClick={() => setDisplayAdd(true)}

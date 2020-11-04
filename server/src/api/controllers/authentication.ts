@@ -12,18 +12,19 @@ const login = async (req, res, next) => {
         next(ApiError.invalidInput(errors));
     }
     try {
-        const { rows } = (await db.getPasswordByUsername(username));
+        const { rows } = (await db.getUserByUsername(username));
         if (!rows || rows.length <= 0) {
             next(ApiError.userNotExists(errors));
         }
-        const user = rows[0];
-        if (!(await bcrypt.compare(password, user.password))) {
+        const { id, username: userUsername, email, password: userPassword } = rows[0];
+
+        if (!(await bcrypt.compare(password, userPassword))) {
             return next(ApiError.wrongCredentials(errors));
         }
-        const token = generateToken(user);
+        const token = generateToken({ id, email, username });
         res.status(200).json({
             status: 200,
-            token
+            user: { id, email, username, token }
         })
     } catch (err) {
         return next(err);
@@ -46,7 +47,12 @@ const register = async (req, res, next) => {
         const user = (await db.insertUser(username, email, hashedPassword)).rows[0];
         res.status(201).json({
             status: "success",
-            token: generateToken(user)
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                token: generateToken(user)
+            }
         });
     } catch (err) {
         return next(err);

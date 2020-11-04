@@ -3,10 +3,16 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import "semantic-ui-css/semantic.min.css";
 import App from "./App";
+import { RestaurantContextProvider } from "./context";
+import { AuthContextProvider } from "./context/auth";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthContextProvider>
+      <RestaurantContextProvider>
+        <App />
+      </RestaurantContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

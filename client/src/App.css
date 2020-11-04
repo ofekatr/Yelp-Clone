@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
+* {
+  word-wrap: break-word;
+}
+
 .bg {
   /* background-image: url(/images/bg.jpg); */
   height: 100vh;
@@ -19,12 +23,8 @@
 
 .page-title {
   display: block !important;
-  font-family: "Lobster", cursive;
   text-align: center;
-  -webkit-text-stroke: 1px rgb(16, 16, 16);
-  color: #ffd700;
-  font-size: 4.5rem;
-  font-weight: 900;
+  font-size: 2rem;
   margin-top: 10px;
 }
 
@@ -37,13 +37,18 @@
   margin: auto;
 }
 
+.login-form-container {
+  width: 25vw;
+  margin: auto;
+}
+
 .review-form {
   width: 40vw;
   margin-left: 10px;
 }
 
 #reviews {
-  background-color: rgba(180,180,180);
+  background-color: rgba(180, 180, 180);
 }
 
 #content {
@@ -70,4 +75,9 @@
   -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
   -o-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
   margin-top: 10px;
+}
+
+#menubar {
+  background: rgba( 32, 32, 32,0.85);
+  border-radius: 6px !important;
 }

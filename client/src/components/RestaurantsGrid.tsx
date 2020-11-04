@@ -30,7 +30,6 @@ export default function RestaurantsGrid({ style }) {
     setRestaurants(restaurants.filter((r) => r.id !== id));
   };
 
-  console.log(restaurants);
   return (
     <div style={style}>
       {restaurants && (

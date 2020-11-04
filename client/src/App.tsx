@@ -4,13 +4,11 @@ import { Card, Container, Divider, Image } from "semantic-ui-react";
 
 import CustomMenubar from "./components/CustomMenubar.tsx";
 import "./App.css";
-import { RestaurantContextProvider } from "./context";
 import CustomSwitch from "./components/CustomSwitch";
 
 function App() {
   return (
-    <div className="bg">
-      <RestaurantContextProvider>
+    <div className="bg" style={{ maxHeight: "100vh", overflow: "auto" }}>
         <Router>
           <Container>
             <Card id="content" fluid>
@@ -27,7 +25,6 @@ function App() {
             </Card>
           </Container>
         </Router>
-      </RestaurantContextProvider>
     </div>
   );
 }

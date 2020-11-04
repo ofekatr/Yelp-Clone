@@ -4,7 +4,8 @@ module.exports = (err, req, res, next) => {
     console.log(err);
     if (err instanceof ApiError) {
         res.status(err.code).json({
-            message: err.msg
+            message: err.msg,
+            errors: err.errors
         });
         return;
     }
