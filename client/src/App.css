@@ -22,8 +22,16 @@
 }
 
 .purple-bold-font {
-  color: #B413EC;
-  font-weight: 800;
+  font-family: Impact, Charcoal, sans-serif;
+  color: #b413ec;
+  font-weight: 400;
+}
+
+.about-font > h1,
+h2,
+h3 {
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-weight: lighter;
 }
 
 .page-title {
