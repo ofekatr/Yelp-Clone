@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Button, Confirm, Icon, TransitionablePortal } from "semantic-ui-react";
+import { useRedirectToLogin } from "../utils/hooks";
 
-function DeleteButton(params) {
-  const { id, callback, user} = params;
+function DeleteButton(props) {
+  const { id, callback, user } = props;
   const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const { onClick } = useRedirectToLogin(
+    () => setConfirmOpen(true),
+    user,
+    props
+  );
 
   const deleteRestaurant = () => {
     setConfirmOpen(false);
@@ -15,7 +22,7 @@ function DeleteButton(params) {
     <>
       <Button
         color="red"
-        onClick={user ? () => setConfirmOpen(true) : () => params.history.push("/login")}
+        onClick={onClick}
         style={{
           padding: "11px 6px 11px 10px",
         }}

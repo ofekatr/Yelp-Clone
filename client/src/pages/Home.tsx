@@ -3,6 +3,7 @@ import { Button, Divider } from "semantic-ui-react";
 import AddRestaurant from "../components/AddRestaurant";
 import RestaurantsGrid from "../components/RestaurantsGrid";
 import { AuthContext } from "../context/auth";
+import { useRedirectToLogin } from "../utils/hooks";
 
 export default function Home(props) {
   const { user } = useContext(AuthContext);
@@ -11,6 +12,12 @@ export default function Home(props) {
   useEffect(() => {
     setDisplayAdd(displayAdd && !!user);
   }, [user]);
+
+  const { onClick } = useRedirectToLogin(
+    () => setDisplayAdd(true),
+    user,
+    props
+  );
 
   return (
     <div>
@@ -28,11 +35,7 @@ export default function Home(props) {
             marginLeft: "30px",
           }}
           content="Add A Restaurant"
-          onClick={
-            user
-              ? () => setDisplayAdd(true)
-              : () => props.history.push("/login")
-          }
+          onClick={onClick}
         />
       )}
       <Divider hidden />

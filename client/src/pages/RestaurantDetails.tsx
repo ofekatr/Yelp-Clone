@@ -4,6 +4,7 @@ import RestaurantAPI from "../api/restaurants";
 import AddReview from "../components/AddReview";
 import Reviews from "../components/Reviews";
 import { AuthContext } from "../context/auth";
+import { useRedirectToLogin } from "../utils/hooks";
 
 export default function RestaurantDetails(props: any) {
   const { id } = props.match.params;
@@ -34,6 +35,8 @@ export default function RestaurantDetails(props: any) {
     fetch();
   }, []);
 
+  const { onClick } = useRedirectToLogin(() => setState({ ...state, displayAdd: !displayAdd }), user, props);
+
   return (
     <>
       {selectedRestaurant && (
@@ -51,9 +54,7 @@ export default function RestaurantDetails(props: any) {
                     paddingRight: "20px",
                   }}
                   content="Add A Review"
-                  onClick={ user ? () =>
-                    setState({ ...state, displayAdd: !displayAdd }) : () => props.history.push("/login")
-                  }
+                  onClick={onClick}
                 />
               )}
               {displayAdd && (

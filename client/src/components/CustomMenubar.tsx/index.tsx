@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent, useContext } from "react";
 import { Menu, MenuItemProps, Search, Image } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { AuthContext } from "../../context/auth";
 import InvertedPopup from "../InvertedPopup";
@@ -189,4 +189,4 @@ function Menubar(props) {
   );
 }
 
-export default Menubar;
+export default withRouter(Menubar);

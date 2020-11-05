@@ -10,7 +10,7 @@ import {
 } from "semantic-ui-react";
 import _ from "lodash";
 
-import { useForm } from "../utils/hooks";
+import { useForm, useRedirectToLogin } from "../utils/hooks";
 import CustomForm from "./CustomForm";
 import RestaurantAPI from "../api/restaurants";
 import { RestaurantContext } from "../context";
@@ -49,6 +49,9 @@ function UpdateModal(props) {
   }));
 
   const [open, setOpen] = React.useState(false);
+
+  const { onClick } = useRedirectToLogin(() => setOpen(true), user, props);
+
   return (
     <>
       <Button
@@ -58,9 +61,7 @@ function UpdateModal(props) {
           paddingRight: "6px",
           padding: "11px 4px 11px 10px",
         }}
-        onClick={
-          user ? () => setOpen(true) : () => props.history.push("/login")
-        }
+        onClick={onClick}
       >
         Update   
         <Icon name="refresh" />

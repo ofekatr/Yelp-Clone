@@ -24,6 +24,14 @@ const useForm = (callback: () => void, initState: any = {}) => {
   };
 }
 
+const useRedirectToLogin = (callback: () => void, user, props) => {
+  const onClick = user ? callback : () => props.history.push('/login');
+  return {
+    onClick
+  };
+}
+
 export {
-  useForm
+  useForm,
+  useRedirectToLogin
 }
