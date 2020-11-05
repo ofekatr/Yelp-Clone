@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom";
 import React, { useContext } from "react";
 import {
   Modal,
@@ -14,7 +15,8 @@ import CustomForm from "./CustomForm";
 import RestaurantAPI from "../api/restaurants";
 import { RestaurantContext } from "../context";
 
-export default function UpdateModal({ values }) {
+function UpdateModal(props) {
+  const { user, values } = props;
   const { restaurants, setRestaurants }: any = useContext(RestaurantContext);
   function update() {
     if (inputs.price_range === 0) return;
@@ -56,7 +58,9 @@ export default function UpdateModal({ values }) {
           paddingRight: "6px",
           padding: "11px 4px 11px 10px",
         }}
-        onClick={() => setOpen(true)}
+        onClick={
+          user ? () => setOpen(true) : () => props.history.push("/login")
+        }
       >
         Update   
         <Icon name="refresh" />
@@ -131,3 +135,5 @@ export default function UpdateModal({ values }) {
     </>
   );
 }
+
+export default withRouter(UpdateModal);

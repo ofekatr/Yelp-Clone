@@ -1,10 +1,20 @@
 import React, { useState, useContext } from "react";
 // import { useMutation } from "@apollo/react-hooks";
-import { Button, Card, Container, Form, Grid, Header } from "semantic-ui-react";
+import {
+  Button,
+  Card,
+  Container,
+  Divider,
+  Form,
+  Grid,
+  Header,
+  Segment,
+} from "semantic-ui-react";
 
 import { useForm } from "../utils/hooks";
 import AuthAPI from "../api/authentication";
 import { AuthContext } from "../context/auth";
+import { Link } from "react-router-dom";
 // import { LOGIN_USER } from "../utils/gqlQuerries";
 
 export default (props) => {
@@ -25,21 +35,6 @@ export default (props) => {
     }
   }
 
-  //   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-  //     update: (_, { data: { login: userData } }) => {
-  //       context.login(userData);
-  //       props.history.push("/");
-  //     },
-  //     onError: (err) => {
-  //       setErrors({ ...err.graphQLErrors[0].extensions!.exception.errors });
-  //     },
-  //     variables: { ...inputs },
-  //   });
-
-  //   function login() {
-  //     loginUser();
-  //   }
-
   return (
     <Container>
       <Grid flow columns="4">
@@ -56,7 +51,6 @@ export default (props) => {
                     onSubmit={onSubmit}
                     noValidate
                     className={"register-form"}
-                    // className={loading ? "loading" : "register-form"}
                   >
                     <Form.Input
                       name="username"
@@ -103,6 +97,12 @@ export default (props) => {
                       </ul>
                     </div>
                   )}
+                </div>
+                <div style={{ margin: "auto" }}>
+                  <Segment>
+                    Don't have an account?{" "}
+                    <Link to="/register">Sign up today! </Link>
+                  </Segment>
                 </div>
               </Grid.Row>
             </Grid>

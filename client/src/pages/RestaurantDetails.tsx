@@ -51,8 +51,8 @@ export default function RestaurantDetails(props: any) {
                     paddingRight: "20px",
                   }}
                   content="Add A Review"
-                  onClick={() =>
-                    setState({ ...state, displayAdd: !displayAdd })
+                  onClick={ user ? () =>
+                    setState({ ...state, displayAdd: !displayAdd }) : () => props.history.push("/login")
                   }
                 />
               )}

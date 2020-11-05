@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import InvertedPopup from "../InvertedPopup";
 
-function Menubar() {
+function Menubar(props) {
   const { user, logout }: any = useContext(AuthContext);
   const pathname = window.location.pathname.substr(1);
   const path = pathname === "" ? "home" : pathname;
@@ -15,6 +15,11 @@ function Menubar() {
     e: MouseEvent<HTMLAnchorElement>,
     { name }: MenuItemProps
   ) => setActiveItem(name as React.SetStateAction<string>);
+
+  function onLogout() {
+    logout();
+    props.history.push('/');
+  }
 
   const menuItemStyle = {
     color: "white",

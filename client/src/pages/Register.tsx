@@ -1,5 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Button, Card, Container, Form, Grid, Header } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  Card,
+  Container,
+  Form,
+  Grid,
+  Header,
+  Segment,
+} from "semantic-ui-react";
 
 import AuthAPI from "../api/authentication";
 import { AuthContext } from "../context/auth";
@@ -107,6 +116,11 @@ export default (props) => {
                       </ul>
                     </div>
                   )}
+                </div>
+                <div style={{ margin: "auto" }}>
+                  <Segment>
+                    Already have an account? <Link to="/login">Sign in</Link>
+                  </Segment>
                 </div>
               </Grid.Row>
             </Grid>

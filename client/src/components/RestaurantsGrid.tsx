@@ -2,13 +2,17 @@ import React, { useContext, useEffect } from "react";
 import { Icon, Rating, Table } from "semantic-ui-react";
 import RestaurantAPI from "../api/restaurants";
 import { RestaurantContext } from "../context";
+import { AuthContext } from "../context/auth";
 import range from "../utils/range";
 import DeleteButton from "./DeleteButton";
 import UpdateModal from "./UpdateModal";
 
-export default function RestaurantsGrid({ style }) {
+export default function RestaurantsGrid(props) {
+  const { style } = props;
+  const { user } = useContext(AuthContext);
   const { restaurants, setRestaurants }: any = useContext(RestaurantContext);
   const ratingFontStyle = { color: "#FFD700", fontSize: "0.85em" };
+
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -33,12 +37,7 @@ export default function RestaurantsGrid({ style }) {
   return (
     <div style={style}>
       {restaurants && (
-        <Table
-          celled
-          inverted
-          striped
-          style={{ borderRadius: "8px" }}
-        >
+        <Table celled inverted striped style={{ borderRadius: "8px" }}>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell textAlign="center">Restaurant</Table.HeaderCell>
@@ -59,10 +58,7 @@ export default function RestaurantsGrid({ style }) {
               ) => (
                 <Table.Row key={id}>
                   <Table.Cell selectable>
-                    <a
-                      href={`/restaurants/${id}`}
-                      rel="noreferrer"
-                    >
+                    <a href={`/restaurants/${id}`} rel="noreferrer">
                       <Icon name="utensils" /> {name}
                     </a>
                   </Table.Cell>
@@ -78,7 +74,10 @@ export default function RestaurantsGrid({ style }) {
                     })}
                   </Table.Cell>
                   <Table.Cell textAlign="center">
-                    <UpdateModal values={{ id, name, city, price_range }} />
+                    <UpdateModal
+                      user={user}
+                      values={{ id, name, city, price_range }}
+                    />
                   </Table.Cell>
                   <Table.Cell textAlign="center">
                     {reviews_count == 0 ? (
@@ -98,7 +97,7 @@ export default function RestaurantsGrid({ style }) {
                     )}
                   </Table.Cell>
                   <Table.Cell textAlign="center">
-                    <DeleteButton callback={deleteRestaurant} id={id} />
+                    <DeleteButton user={user} callback={deleteRestaurant} id={id} />
                   </Table.Cell>
                 </Table.Row>
               )

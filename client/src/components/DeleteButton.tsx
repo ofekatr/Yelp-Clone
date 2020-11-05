@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import { Button, Confirm, Icon, TransitionablePortal } from "semantic-ui-react";
 
-export default function DeleteButton(params) {
-  const { id, callback } = params;
+function DeleteButton(params) {
+  const { id, callback, user} = params;
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const deleteRestaurant = () => {
@@ -14,7 +15,7 @@ export default function DeleteButton(params) {
     <>
       <Button
         color="red"
-        onClick={() => setConfirmOpen(true)}
+        onClick={user ? () => setConfirmOpen(true) : () => params.history.push("/login")}
         style={{
           padding: "11px 6px 11px 10px",
         }}
@@ -35,3 +36,5 @@ export default function DeleteButton(params) {
     </>
   );
 }
+
+export default withRouter(DeleteButton);
