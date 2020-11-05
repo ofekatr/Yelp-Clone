@@ -10,6 +10,8 @@ Written in TypeScript, implemented with:
 
 Uses hooks, Redux and JWT authentication.
 
+Server build in a clean & organized MVC architecture, and querries the database via stored procedures and functions.
+
 Users can find reviews and ratings for restaurants on the site.
 
 Once logged in, users can:
