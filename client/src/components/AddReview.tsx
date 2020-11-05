@@ -5,7 +5,7 @@ import _ from "lodash";
 import { useForm } from "../utils/hooks";
 import ReviewsAPI from "../api/reviews";
 
-export default function AddReview({ state, setState }) {
+export default function AddReview({ state, setState, username }) {
   const inputContentRef = useRef(null);
   const { selectedRestaurant } = state;
   const { id: restaurant_id, name } = selectedRestaurant;
@@ -27,7 +27,7 @@ export default function AddReview({ state, setState }) {
     try {
       const { restaurant } = (
         await ReviewsAPI.post(`/${restaurant_id}`, {
-          name,
+          name: username,
           content,
           rating,
         })

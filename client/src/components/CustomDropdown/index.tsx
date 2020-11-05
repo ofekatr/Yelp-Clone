@@ -2,8 +2,14 @@ import React from "react";
 
 const CustomDropdown = ({ options, name, placeholder, onChange, inputs }) => (
   <select
-    className="ui selection dropdown"
-    style={{ marginTop: "25px", width: "100%" }}
+    className="ui dropdown"
+    style={{
+      borderRadius: "7px",
+      marginTop: "25px",
+      width: "100%",
+      padding: 0,
+      maxHeight: "40px",
+    }}
     onChange={onChange}
     name={name}
     value={inputs.price_range}

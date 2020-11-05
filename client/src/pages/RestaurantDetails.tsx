@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Container, Divider } from "semantic-ui-react";
 import RestaurantAPI from "../api/restaurants";
 import AddReview from "../components/AddReview";
 import Reviews from "../components/Reviews";
+import { AuthContext } from "../context/auth";
 
 export default function RestaurantDetails(props: any) {
   const { id } = props.match.params;
+
+  const { user }: any = useContext(AuthContext);
+
   const [state, setState] = useState({
     selectedRestaurant: null,
     displayAdd: false,
@@ -20,6 +24,7 @@ export default function RestaurantDetails(props: any) {
         const { restaurant: selectedRestaurant } = (
           await RestaurantAPI.get(`/${id}`)
         ).data.data;
+        console.log(selectedRestaurant);
         setState({ selectedRestaurant, error: !selectedRestaurant });
       } catch (err) {
         console.error(err);
@@ -33,7 +38,7 @@ export default function RestaurantDetails(props: any) {
     <>
       {selectedRestaurant && (
         <Container>
-          <h1>{selectedRestaurant.name}</h1>
+          <h1 className="purple-bold-font">{selectedRestaurant.name}</h1>
           <Card fluid id="reviews">
             <Card.Content style={{ padding: "30px" }}>
               {!displayAdd && (
@@ -51,7 +56,13 @@ export default function RestaurantDetails(props: any) {
                   }
                 />
               )}
-              {displayAdd && <AddReview state={state} setState={setState} />}
+              {displayAdd && (
+                <AddReview
+                  username={user.username}
+                  state={state}
+                  setState={setState}
+                />
+              )}
               <Divider />
               <div>
                 <Reviews
@@ -64,7 +75,7 @@ export default function RestaurantDetails(props: any) {
         </Container>
       )}
       {error && (
-        <h1 style={{ textAlign: "center", color: "#B413EC" }}>
+        <h1 className="purple-bold-font" style={{ textAlign: "center" }}>
           Restaurant Not Found.
         </h1>
       )}

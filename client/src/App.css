@@ -21,6 +21,11 @@
   margin-left: 15px;
 }
 
+.purple-bold-font {
+  color: #B413EC;
+  font-weight: 800;
+}
+
 .page-title {
   display: block !important;
   text-align: center;
@@ -48,11 +53,12 @@
 }
 
 #reviews {
-  background-color: rgba(180, 180, 180);
+  background-color: #3a3a3a;
 }
 
 #content {
-  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
   background-color: rgba(56, 56, 56, 0.6);
 
   padding: 10px;
@@ -78,6 +84,6 @@
 }
 
 #menubar {
-  background: rgba( 32, 32, 32,0.85);
+  background: rgba(32, 32, 32, 0.85);
   border-radius: 6px !important;
 }

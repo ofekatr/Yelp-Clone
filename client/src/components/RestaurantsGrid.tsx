@@ -33,7 +33,12 @@ export default function RestaurantsGrid({ style }) {
   return (
     <div style={style}>
       {restaurants && (
-        <Table celled inverted striped style={{ borderRadius: "8px" }}>
+        <Table
+          celled
+          inverted
+          striped
+          style={{ borderRadius: "8px" }}
+        >
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell textAlign="center">Restaurant</Table.HeaderCell>
@@ -56,7 +61,6 @@ export default function RestaurantsGrid({ style }) {
                   <Table.Cell selectable>
                     <a
                       href={`/restaurants/${id}`}
-                      target="_blank"
                       rel="noreferrer"
                     >
                       <Icon name="utensils" /> {name}
