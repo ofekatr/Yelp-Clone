@@ -22,8 +22,8 @@ Once logged in, users can:
 
 ![Screenshot (20)](https://user-images.githubusercontent.com/46415136/98250538-3b885f00-1f80-11eb-81fa-bbce8e08845b.png)
 
-![Screenshot (21)](https://user-images.githubusercontent.com/46415136/98250564-42af6d00-1f80-11eb-997b-902d44747726.png)
+![Screenshot (24)](https://user-images.githubusercontent.com/46415136/98251513-75a63080-1f81-11eb-91ba-4a5d383055c5.png)
 
-![Screenshot (22)](https://user-images.githubusercontent.com/46415136/98250589-4a6f1180-1f80-11eb-9542-be4c80b7909a.png)
+![Screenshot (25)](https://user-images.githubusercontent.com/46415136/98251538-7d65d500-1f81-11eb-8f24-09168de9a242.png)
 
 ![Screenshot (23)](https://user-images.githubusercontent.com/46415136/98250730-7e4a3700-1f80-11eb-92ec-fda9ed04daa1.png)
