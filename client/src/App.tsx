@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { Card, Container, Divider, Image } from "semantic-ui-react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Card, Container, Divider } from "semantic-ui-react";
 
 import CustomMenubar from "./components/CustomMenubar.tsx";
 import "./App.css";

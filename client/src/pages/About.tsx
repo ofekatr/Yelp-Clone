@@ -14,7 +14,7 @@ export default function About() {
                  Yelp Clone Web Application
               </h1>
               <div className="about-font">
-                <h2>A restaurants reviews web application.</h2>
+                <h2>A restaurant reviews web application.</h2>
                 <h3>
                   Written in TypeScript, implemented with:
                   <ul>

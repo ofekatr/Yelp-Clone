@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -14,10 +14,8 @@ import AuthAPI from "../api/authentication";
 import { AuthContext } from "../context/auth";
 import { useForm } from "../utils/hooks";
 
-export default (props) => {
+export default function Register(props) {
   const context = useContext(AuthContext);
-  const [errors, setErrors]: any = useState({});
-
   const { onChange, onSubmit, inputs } = useForm(() => register(), {
     username: "",
     email: "",
@@ -60,7 +58,6 @@ export default (props) => {
                       type="text"
                       value={inputs.username}
                       onChange={onChange}
-                      error={errors.username}
                     ></Form.Input>
                     <Form.Input
                       name="email"
@@ -70,14 +67,12 @@ export default (props) => {
                       type="email"
                       value={inputs.email}
                       onChange={onChange}
-                      error={errors.email}
                     ></Form.Input>
                     <Form.Input
                       name="password"
                       icon="lock"
                       label="Password:"
                       placeholder="Password..."
-                      error={errors.password}
                       type="password"
                       value={inputs.password}
                       onChange={onChange}
@@ -107,15 +102,6 @@ export default (props) => {
                       </Grid.Column>
                     </Grid>
                   </Form>
-                  {Object.keys(errors).length > 0 && (
-                    <div className="ui error message">
-                      <ul className="list">
-                        {Object.values(errors).map((v) => (
-                          <li key={v as string}>{v as string}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </div>
                 <div style={{ margin: "auto" }}>
                   <Segment>
@@ -129,4 +115,4 @@ export default (props) => {
       </Grid>
     </Container>
   );
-};
+}

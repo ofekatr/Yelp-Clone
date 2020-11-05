@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Button, Form, Input, Rating } from "semantic-ui-react";
+import { Button, Form, Rating } from "semantic-ui-react";
 import _ from "lodash";
 
 import { useForm } from "../utils/hooks";
@@ -8,7 +8,7 @@ import ReviewsAPI from "../api/reviews";
 export default function AddReview({ state, setState, username }) {
   const inputContentRef = useRef(null);
   const { selectedRestaurant } = state;
-  const { id: restaurant_id, name } = selectedRestaurant;
+  const { id: restaurant_id } = selectedRestaurant;
   const initState = {
     content: "",
     rating: 1,

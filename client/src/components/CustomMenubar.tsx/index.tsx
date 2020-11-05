@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, useContext, useEffect } from "react";
+import React, { useState, MouseEvent, useContext } from "react";
 import { Menu, MenuItemProps, Search, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
@@ -18,7 +18,7 @@ function Menubar(props) {
 
   function onLogout() {
     logout();
-    props.history.push('/');
+    props.history.push("/");
   }
 
   const menuItemStyle = {
@@ -72,7 +72,7 @@ function Menubar(props) {
                 <Menu.Item
                   name="logout"
                   style={menuItemStyle}
-                  onClick={logout}
+                  onClick={() => onLogout()}
                 />
               }
             />

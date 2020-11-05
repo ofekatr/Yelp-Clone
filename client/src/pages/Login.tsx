@@ -1,10 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 // import { useMutation } from "@apollo/react-hooks";
 import {
   Button,
   Card,
   Container,
-  Divider,
   Form,
   Grid,
   Header,
@@ -17,9 +16,8 @@ import { AuthContext } from "../context/auth";
 import { Link } from "react-router-dom";
 // import { LOGIN_USER } from "../utils/gqlQuerries";
 
-export default (props) => {
+export default function Login(props) {
   const context = useContext(AuthContext);
-  const [errors, setErrors]: any = useState({});
 
   const { onChange, onSubmit, inputs } = useForm(() => login(), {
     username: "",
@@ -60,14 +58,12 @@ export default (props) => {
                       type="text"
                       value={inputs.username}
                       onChange={onChange}
-                      error={errors.username}
                     ></Form.Input>
                     <Form.Input
                       name="password"
                       icon="lock"
                       label="Password:"
                       placeholder="Password..."
-                      error={errors.password}
                       type="password"
                       value={inputs.password}
                       onChange={onChange}
@@ -88,15 +84,6 @@ export default (props) => {
                       </Grid.Column>
                     </Grid>
                   </Form>
-                  {Object.keys(errors).length > 0 && (
-                    <div className="ui error message">
-                      <ul className="list">
-                        {Object.values(errors).map((value: any) => (
-                          <li key={value}>{value}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </div>
                 <div style={{ margin: "auto" }}>
                   <Segment>
@@ -111,4 +98,4 @@ export default (props) => {
       </Grid>
     </Container>
   );
-};
+}

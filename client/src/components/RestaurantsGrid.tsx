@@ -80,7 +80,7 @@ export default function RestaurantsGrid(props) {
                     />
                   </Table.Cell>
                   <Table.Cell textAlign="center">
-                    {reviews_count == 0 ? (
+                    {(reviews_count as number) === 0 ? (
                       <span style={ratingFontStyle}>No Reviews Yet.</span>
                     ) : (
                       <>
@@ -97,7 +97,11 @@ export default function RestaurantsGrid(props) {
                     )}
                   </Table.Cell>
                   <Table.Cell textAlign="center">
-                    <DeleteButton user={user} callback={deleteRestaurant} id={id} />
+                    <DeleteButton
+                      user={user}
+                      callback={deleteRestaurant}
+                      id={id}
+                    />
                   </Table.Cell>
                 </Table.Row>
               )

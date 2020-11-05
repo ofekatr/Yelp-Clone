@@ -5,4 +5,5 @@ const style = {
     opacity: 0.7,
   }
 
-export default (props) => <Popup inverted style={style} {...props}/>
+const InvertedPopup = (props) => <Popup inverted style={style} {...props}/>;
+export default InvertedPopup;
