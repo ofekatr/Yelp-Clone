@@ -1,9 +1,9 @@
 const { query } = require("../");
 const { F_UPDATE_RESTAURANT, P_DELETE_RESTAURANT } = process.env;
 
-const getRestaurants = () => query('SELECT restaurants.*, COUNT(reviews.id) AS reviews_count, COALESCE(AVG(reviews.rating), 0) AS average_rating FROM restaurants LEFT JOIN reviews ON (restaurants.id = reviews.restaurant_id) GROUP BY restaurants.id;');
+const getRestaurants = () => query('SELECT restaurants.*, COUNT(reviews.id) AS reviews_count, TRUNC(COALESCE(AVG(reviews.rating), 0), 2) AS average_rating FROM restaurants LEFT JOIN reviews ON (restaurants.id = reviews.restaurant_id) GROUP BY restaurants.id;');
 
-const getRestaurant = (id) => query('SELECT restaurants.*, COUNT(reviews.id) AS reviews_count, COALESCE(AVG(reviews.rating), 0) AS average_rating FROM restaurants LEFT JOIN reviews ON (restaurants.id = reviews.restaurant_id) WHERE (restaurants.id = $1) GROUP BY restaurants.id;', [id]);
+const getRestaurant = (id) => query('SELECT restaurants.*, COUNT(reviews.id) AS reviews_count, TRUNC(COALESCE(AVG(reviews.rating), 0), 2) AS average_rating FROM restaurants LEFT JOIN reviews ON (restaurants.id = reviews.restaurant_id) WHERE (restaurants.id = $1) GROUP BY restaurants.id;', [id]);
 
 const getRestaurantReviews = (id) => query(`SELECT * FROM reviews WHERE restaurant_id = $1 ORDER BY ID DESC;`, [id]);
 

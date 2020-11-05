@@ -20,7 +20,7 @@ const getRestaurants = async (_, res, next) => {
 const getRestaurant = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const restaurant = { ...(await db.getRestaurant(id)).rows[0] };
+        const restaurant = (await db.getRestaurant(id)).rows[0];
         restaurant.reviews = (await db.getRestaurantReviews(restaurant.id)).rows;
         res.status(200).json({
             status: "success",
