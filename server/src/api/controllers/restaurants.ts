@@ -38,9 +38,10 @@ const createRestaurant = async (req, res, next) => {
     const { name, city, price_range } = req.body;
     try {
         const { rows } = await db.createRestaurant(name, city, price_range);
+        const restaurant = { ...rows[0], average_rating: 0, reviews_count: 0}
         res.status(201).json({
             status: "success",
-            restaurant: rows[0]
+            restaurant: restaurant
         });
     } catch (err) {
         next(err);

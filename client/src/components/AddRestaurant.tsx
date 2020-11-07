@@ -34,7 +34,7 @@ export default function AddRestaurant({ style }) {
     } catch (err) {
       console.error(err);
     }
-    setRestaurants([...restaurants, { ...restaurant, id: 0 }]);
+    setRestaurants([...restaurants, { ...restaurant, id: 0, average_rating: 0, reviews_count: 0 }]);
     inputs = _.cloneDeep(initState);
   };
 

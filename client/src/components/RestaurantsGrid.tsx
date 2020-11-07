@@ -56,7 +56,7 @@ export default function RestaurantsGrid(props) {
                 { id, name, city, price_range, reviews_count, average_rating },
                 i
               ) => (
-                <Table.Row key={id}>
+                <Table.Row key={name+city}>
                   <Table.Cell selectable>
                     <a href={`/restaurants/${id}`} rel="noreferrer">
                       <Icon name="utensils" /> {name}
@@ -68,7 +68,7 @@ export default function RestaurantsGrid(props) {
                       return (
                         <Icon
                           name="dollar sign"
-                          key={id.toString().repeat(j)}
+                          key={`${name}${city}${j}`}
                         />
                       );
                     })}

@@ -1,10 +1,10 @@
 const { query } = require("../");
 
-const getUserByUsername = (username) => query(`SELECT * FROM users WHERE username = $1 LIMIT 1;`, [username]);
+const getUserByUsername = (username) => query("SELECT * FROM get_user_from_username($1)", [username]);
 
-const isUserExistsByUsername = (username) => query("SELECT id FROM users WHERE username = $1 LIMIT 1;", [username]);
+const isUserExistsByUsername = (username) => query("SELECT * FROM is_user_exists_by_username($1); ", [username]);
 
-const insertUser = (username, email, hashedPassword) => query("INSERT INTO users (username, email, password, created_date) VALUES ($1, $2, $3, $4) RETURNING *;", [username, email, hashedPassword, new Date().toISOString()]);
+const insertUser = (username, email, hashedPassword) => query("SELECT FROM insert_user($1, $2, $3, $4);", [username, email, hashedPassword, new Date().toISOString()]);
 
 module.exports = {
     getUserByUsername,
