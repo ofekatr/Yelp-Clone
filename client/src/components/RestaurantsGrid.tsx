@@ -80,12 +80,11 @@ export default function RestaurantsGrid(props) {
                     />
                   </Table.Cell>
                   <Table.Cell textAlign="center">
-                    {(reviews_count as number) === 0 ? (
+                    {parseInt(reviews_count) === 0 ? (
                       <span style={ratingFontStyle}>No Reviews Yet.</span>
                     ) : (
                       <>
                         <Rating
-                          basic
                           disabled
                           icon="star"
                           size="large"

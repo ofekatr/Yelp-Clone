@@ -8,7 +8,7 @@ export default function Reviews({ reviewsData, reviews_count }) {
     <Grid columns="three" divided>
       <Grid.Row>
         <h3>
-          {(reviews_count as number) === 0
+          {parseInt(reviews_count) === 0
             ? "No reviews yet. Be the first one to review!"
             : `${reviews_count} Review(s):`}
         </h3>

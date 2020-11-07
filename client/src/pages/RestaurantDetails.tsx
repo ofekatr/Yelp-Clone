@@ -35,13 +35,19 @@ export default function RestaurantDetails(props: any) {
     fetch();
   }, []);
 
-  const { onClick } = useRedirectToLogin(() => setState({ ...state, displayAdd: !displayAdd }), user, props);
+  const { onClick } = useRedirectToLogin(
+    () => setState({ ...state, displayAdd: !displayAdd }),
+    user,
+    props
+  );
 
   return (
     <>
       {selectedRestaurant && (
         <Container>
-          <h1 className="purple-bold-font">{selectedRestaurant.name}</h1>
+          <h1 className="purple-bold-font" style={{ fontSize: "3em" }}>
+            {selectedRestaurant.name}
+          </h1>
           <Card fluid id="reviews">
             <Card.Content style={{ padding: "30px" }}>
               {!displayAdd && (

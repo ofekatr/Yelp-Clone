@@ -40,7 +40,12 @@ const validateUsername = (username: string, errors: any) => {
 const validatePassword = (password: string, errors: any, confirmPassword?: string) => {
     if (isEmptyAllowWhiteSpace(password)) {
         errors.password = 'Password must not be empty.';
-    } else if (confirmPassword && password !== confirmPassword) {
+        return;
+    } if (isEmptyAllowWhiteSpace(confirmPassword)) {
+        errors.confirmPassword = 'Confirm your password.';
+        return;
+    }
+    else if (confirmPassword && password !== confirmPassword) {
         errors.password = 'Passwords must match.';
     }
 };

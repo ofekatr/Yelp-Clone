@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 // import { useMutation } from "@apollo/react-hooks";
 import {
   Button,
@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 export default function Login(props) {
   const context = useContext(AuthContext);
 
+  const [errors, setErrors]: any = useState();
+
   const { onChange, onSubmit, inputs } = useForm(() => login(), {
     username: "",
     password: "",
@@ -29,17 +31,17 @@ export default function Login(props) {
       context.login((await AuthAPI.post("/login", inputs)).data.user);
       props.history.push("/");
     } catch (err) {
-      console.error(err.errors);
+      if (err.response && err.response.data) setErrors(err.response.data);
     }
   }
 
   return (
     <Container>
-      <Grid flow columns="4">
+      <Grid columns="4">
         <Grid.Column></Grid.Column>
         <Grid.Column width="8">
           <Card style={{ borderRadius: "13px", padding: "15px" }} fluid>
-            <Grid flow>
+            <Grid>
               <Grid.Row className="page-title">
                 <Header color="purple">Welcome Back!</Header>
               </Grid.Row>
@@ -54,6 +56,8 @@ export default function Login(props) {
                       name="username"
                       icon="user"
                       label="Username:"
+                      required
+                      error={errors && errors.errors && errors.errors.username}
                       placeholder="Username..."
                       type="text"
                       value={inputs.username}
@@ -63,6 +67,8 @@ export default function Login(props) {
                       name="password"
                       icon="lock"
                       label="Password:"
+                      required
+                      error={errors && errors.errors && errors.errors.password}
                       placeholder="Password..."
                       type="password"
                       value={inputs.password}
@@ -86,6 +92,17 @@ export default function Login(props) {
                   </Form>
                 </div>
                 <div style={{ margin: "auto" }}>
+                  {errors && (
+                    <div className="ui error message">
+                      {errors.message}
+                      <ul>
+                        {errors.errors &&
+                          Object.keys(errors.errors).map((e) => (
+                            <li key={e}>{errors.errors[e]}</li>
+                          ))}
+                      </ul>
+                    </div>
+                  )}
                   <Segment>
                     Don't have an account?{" "}
                     <Link to="/register">Sign up today! </Link>

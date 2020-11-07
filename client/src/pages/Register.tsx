@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -16,6 +16,7 @@ import { useForm } from "../utils/hooks";
 
 export default function Register(props) {
   const context = useContext(AuthContext);
+  const [errors, setErrors]: any = useState();
   const { onChange, onSubmit, inputs } = useForm(() => register(), {
     username: "",
     email: "",
@@ -28,17 +29,17 @@ export default function Register(props) {
       context.login((await AuthAPI.post("/register", inputs)).data.user);
       props.history.push("/");
     } catch (err) {
-      console.error(err);
+      setErrors(err.response.data);
     }
   }
 
   return (
     <Container>
-      <Grid flow columns="4">
+      <Grid columns="4">
         <Grid.Column></Grid.Column>
         <Grid.Column width="8">
           <Card style={{ borderRadius: "13px", padding: "15px" }} fluid>
-            <Grid flow>
+            <Grid>
               <Grid.Row className="page-title">
                 <Header color="purple">Join Today!</Header>
               </Grid.Row>
@@ -53,6 +54,8 @@ export default function Register(props) {
                       icon="user"
                       name="username"
                       label="Username:"
+                      required
+                      error={errors && errors.errors && errors.errors.username}
                       placeholder="Username..."
                       //   width="4"
                       type="text"
@@ -63,6 +66,8 @@ export default function Register(props) {
                       name="email"
                       icon="envelope"
                       label="Email:"
+                      required
+                      error={errors && errors.errors && errors.errors.email}
                       placeholder="Email..."
                       type="email"
                       value={inputs.email}
@@ -72,6 +77,8 @@ export default function Register(props) {
                       name="password"
                       icon="lock"
                       label="Password:"
+                      required
+                      error={errors && errors.errors && errors.errors.password}
                       placeholder="Password..."
                       type="password"
                       value={inputs.password}
@@ -81,6 +88,8 @@ export default function Register(props) {
                       name="confirmPassword"
                       icon="lock"
                       label="Confirm Password:"
+                      required
+                      error={errors && errors.errors && errors.errors.password}
                       placeholder="Confirm..."
                       type="password"
                       value={inputs.confirmPassword}
@@ -104,6 +113,17 @@ export default function Register(props) {
                   </Form>
                 </div>
                 <div style={{ margin: "auto" }}>
+                  {errors && (
+                    <div className="ui error message">
+                      {errors.message}
+                      <ul>
+                        {errors.errors &&
+                          Object.keys(errors.errors).map((e) => (
+                            <li key={e}>{errors.errors[e]}</li>
+                          ))}
+                      </ul>
+                    </div>
+                  )}
                   <Segment>
                     Already have an account? <Link to="/login">Sign in</Link>
                   </Segment>
