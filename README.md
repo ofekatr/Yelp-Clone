@@ -1,6 +1,4 @@
-https://blissful-goldberg-eda9ec.netlify.app/
-
-# Yelp Clone Web Application
+[# Yelp Clone Web Application](https://blissful-goldberg-eda9ec.netlify.app/)
 ---
 A restaurants reviews web application.
 
