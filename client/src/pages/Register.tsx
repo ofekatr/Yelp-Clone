@@ -29,7 +29,7 @@ export default function Register(props) {
       context.login((await AuthAPI.post("/register", inputs)).data.user);
       props.history.push("/");
     } catch (err) {
-      setErrors(err.response.data);
+      if (err.response && err.response.data) setErrors(err.response.data);
     }
   }
 

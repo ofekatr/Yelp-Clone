@@ -25,7 +25,6 @@ export default function RestaurantDetails(props: any) {
         const { restaurant: selectedRestaurant } = (
           await RestaurantAPI.get(`/${id}`)
         ).data.data;
-        console.log(selectedRestaurant);
         setState({ selectedRestaurant, error: !selectedRestaurant });
       } catch (err) {
         console.error(err);

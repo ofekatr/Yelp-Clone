@@ -39,11 +39,9 @@ const register = async (req, res, next) => {
     }
     try {
         const hashedPassword = await bcrypt.hash(password, 12);
-        console.log(hashedPassword);
         if ((await db.isUserExistsByUsername(username)).rows.length > 0) {
             return next(ApiError.userExists(errors));
         }
-        console.log(username, email, password);
         const user = (await db.insertUser(username, email, hashedPassword)).rows[0];
         res.status(201).json({
             status: "success",
