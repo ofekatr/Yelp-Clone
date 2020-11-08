@@ -1,4 +1,4 @@
-<a href="https://blissful-goldberg-eda9ec.netlify.app/" target="_blank."># Yelp Clone Web Application</a>
+<a href="https://blissful-goldberg-eda9ec.netlify.app/" target="_blank"># Yelp Clone Web Application</a>
 ---
 A restaurants reviews web application.
 
