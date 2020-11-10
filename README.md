@@ -2,7 +2,7 @@
 ---
 A restaurants reviews web application.
 
-Written in TypeScript, implemented with:
+A full stack app written in TypeScript, implemented with:
 * PostgreSQL
 * Express
 * React
